@@ -28,7 +28,7 @@ echo Current Directory:
 pwd
 
 echo listing files: 
-ls --all
+ls -A
 # lftp -u $FTP_USERNAME,$FTP_PASSWORD sftp://$FTP_SERVER -e "set ftp:ssl-allow no; mirror --delete --verbose -R wp-content/themes/soledad-child html/wp-content/themes/soledad-child; quit"
 
 
