@@ -22,9 +22,10 @@ fi;
 echo "Using $WDEFAULT_METHOD to connect to port $WDEFAULT_PORT"
 
 echo "Uploading files..."
-echo lftp -u $FTP_USERNAME,$FTP_PASSWORD $WDEFAULT_METHOD://$FTP_SERVER:$WDEFAULT_PORT -e "set ftp:ssl-allow no; mirror $WDEFAULT_ARGS -R $WDEFAULT_LOCAL_DIR $WDEFAULT_REMOTE_DIR; quit"
 
-lftp -u $FTP_USERNAME,$FTP_PASSWORD $WDEFAULT_METHOD://$FTP_SERVER:$WDEFAULT_PORT -e "set ftp:ssl-allow no; mirror $WDEFAULT_ARGS -R $WDEFAULT_LOCAL_DIR $WDEFAULT_REMOTE_DIR; quit"
+# lftp -u $FTP_USERNAME,$FTP_PASSWORD $WDEFAULT_METHOD://$FTP_SERVER:$WDEFAULT_PORT -e "set ftp:ssl-allow no; mirror $WDEFAULT_ARGS -R $WDEFAULT_LOCAL_DIR $WDEFAULT_REMOTE_DIR; quit"
+lftp -u $FTP_USERNAME,$FTP_PASSWORD sftp://$FTP_SERVER -e "set ftp:ssl-allow no; mirror --delete --verbose --exclude='.*' --include='^wp-content\/(themes\/.*)?$' --include='^wp-content\/(plugins\/.*)?$' --exclude='^wp-content\/plugins\/jetpack\/.*' --exclude='^wp-content\/plugins\/woocommerce\/.*' -R . html; quit"
+
 
 echo "FTP Deploy Complete"
 exit 0
